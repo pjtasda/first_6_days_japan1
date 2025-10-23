@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Winter Journey 2024</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .snow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            font-size: 1em;
+            opacity: 0.8;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh);
+            }
+        }
+
+        header {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><path fill="%23ffffff" opacity="0.1" d="M0,100 Q300,50 600,100 T1200,100 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .day-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="2" fill="white" opacity="0.2"/><circle cx="30" cy="25" r="1.5" fill="white" opacity="0.3"/><circle cx="50" cy="15" r="2" fill="white" opacity="0.2"/><circle cx="70" cy="30" r="1" fill="white" opacity="0.25"/><circle cx="85" cy="20" r="1.5" fill="white" opacity="0.3"/></svg>');
+            background-size: 200px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .day-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .day-header .location {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .activity {
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #f7fafc, white);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .activity:hover {
+            background: linear-gradient(to right, #edf2f7, white);
+            transform: translateX(5px);
+        }
+
+        .time {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin: 0.5rem 0;
+        }
+
+        .activity-details {
+            color: #4a5568;
+            margin: 0.5rem 0;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #d35400;
+        }
+
+        .admission {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+
+        .note {
+            background: #ebf8ff;
+            border-left: 3px solid #4299e1;
+            padding: 0.8rem;
+            margin-top: 0.5rem;
+            border-radius: 5px;
+            font-style: italic;
+            color: #2c5282;
+        }
+
+        footer {
+            background: rgba(0,0,0,0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .icon {
+            margin-right: 0.5rem;
+        }
+
+        .location-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .activity-image {
+            width: 100%;
+            max-width: 400px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-top: 1rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+    <div class="snow" id="snow"></div>
+
+    <header>
+        <h1>❄️ Winter Journey Through Japan ❄️</h1>
+        <p>December 24-29, 2024 | A Magical Adventure</p>
+    </header>
+
+    <div class="container">
+        <!-- Day 1 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 1 - December 24</h2>
+                <div class="location">🏯 Arrival & Gero Onsen</div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800" alt="Gero Onsen hot springs" class="location-image">
+
+            <div class="activity">
+                <span class="time">08:30</span>
+                <div class="activity-title">✈️ Arrival at Central Japan International Airport</div>
+                <div class="activity-details">
+                    Flight SQ 672 arrives at Central Japan International Airport (Komatsu or Nagoya)
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">09:00</span>
+                <div class="activity-title">🚗 Rental Car Pickup</div>
+                <div class="activity-details">
+                    Pick up rental vehicle at airport - approximately 1 hour to complete
+                    <div class="note">💡 Select car type based on group size</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">11:00</span>
+                <div class="activity-title">🗾 Depart to Magome-Tsumago</div>
+                <div class="activity-details">
+                    Scenic 1-hour drive through mountains via Highway 19
+                    <div class="note">⛰️ Enjoy the beautiful mountain scenery along the way</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">14:00</span>
+                <div class="activity-title">🏘️ Explore Magome-Tsumago Historic Town</div>
+                <div class="activity-details">
+                    Wander through this <span class="highlight">17th-century post town</span> with traditional wooden merchant houses and Edo-period buildings. Browse local shops and soak in the historic atmosphere.
+                    <span class="admission">FREE Entry</span>
+                    <div class="note">⏱️ Allow 2-3 hours for full exploration</div>
+                    <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=600" alt="Magome historic street" class="activity-image">
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">17:00</span>
+                <div class="activity-title">🚙 Travel to Gero Onsen</div>
+                <div class="activity-details">
+                    45-minute drive via Route 257
+                    <div class="note">🌅 Last light around 16:30 in December</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">20:00</span>
+                <div class="activity-title">♨️ Check-in at Suimeikan Hotel</div>
+                <div class="activity-details">
+                    <strong>Address:</strong> 1268 Koden, Gero 509-2206<br>
+                    Enjoy dinner and relax in therapeutic hot spring baths
+                    <div class="note">🍱 Dinner included in hotel package</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 2 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 2 - December 25</h2>
+                <div class="location">🏯 Kanazawa - The Golden City</div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1624468489553-c3c2e8d9338e?w=800" alt="Kanazawa cityscape" class="location-image">
+
+            <div class="activity">
+                <span class="time">09:00</span>
+                <div class="activity-title">🍳 Breakfast at Hotel</div>
+                <div class="activity-details">
+                    Leisurely morning to enjoy hotel amenities
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">10:00</span>
+                <div class="activity-title">🦀 Omicho Market</div>
+                <div class="activity-details">
+                    Explore <span class="highlight">180+ vendor stalls</span> at this fresh seafood center. Try kaisendon (seafood rice bowl), uni, and crab at various restaurants inside the market.
+                    <span class="admission">9:00-17:00 (Most shops close 16:00)</span>
+                    <div class="note">🌅 Peak freshness from early morning to noon</div>
+                    <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600" alt="Japanese seafood market" class="activity-image">
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">13:00</span>
+                <div class="activity-title">🏨 Rest & Lunch</div>
+                <div class="activity-details">
+                    Return to hotel area for rest and preparation
+                    <div class="note">🎨 Optional: 21st Century Museum of Contemporary Art (¥1200, 10:00-18:00)</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">14:00</span>
+                <div class="activity-title">🏯 Kanazawa Castle Park</div>
+                <div class="activity-details">
+                    Visit this historic samurai castle site with beautiful winter scenery
+                    <span class="admission">FREE | 8:00-17:00</span>
+                    <div class="note">📍 Adjacent to Kenrokuen Garden</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">15:00</span>
+                <div class="activity-title">🌸 Kenrokuen Garden</div>
+                <div class="activity-details">
+                    One of <span class="highlight">Japan's Three Great Gardens</span> featuring stone lanterns, bridges, and serene ponds with winter beauty
+                    <span class="admission">¥320 | 8:00-17:00</span>
+                    <div class="note">⏱️ Allow minimum 2 hours for full garden experience</div>
+                    <div class="image-grid">
+                        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400" alt="Kenrokuen Garden winter">
+                        <img src="https://images.unsplash.com/photo-1480796927426-f609979314bd?w=400" alt="Japanese garden stone lantern">
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">17:30</span>
+                <div class="activity-title">🎎 Higashi Chaya District</div>
+                <div class="activity-details">
+                    Explore Kanazawa's largest geisha district, established in 1820. Wander through historic wooden buildings and traditional teahouses with authentic geisha culture.
+                    <span class="admission">FREE to explore streets</span>
+                    <div class="note">🏮 Some teahouses charge ¥500-1000 for entry | Plan 2-3 hours</div>
+                    <img src="https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?w=600" alt="Higashi Chaya geisha district" class="activity-image">
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">19:00</span>
+                <div class="activity-title">🍽️ Dinner in Higashi Chaya District</div>
+                <div class="activity-details">
+                    Traditional Kanazawa cuisine at district restaurants
+                    <div class="note">📞 Reservations recommended for popular restaurants</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 3 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 3 - December 26</h2>
+                <div class="location">🐟 Himi Fishing Port Adventure</div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1534043464124-3be32fe000c9?w=800" alt="Japanese fishing port" class="location-image">
+
+            <div class="activity">
+                <span class="time">08:00</span>
+                <div class="activity-title">🚗 Depart for Himi Fishing Port</div>
+                <div class="activity-details">
+                    30-40 minute drive via Route 8
+                    <div class="note">🌅 Early departure advisable for market experience</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">09:30</span>
+                <div class="activity-title">🎣 Himi Fishing Port Market - Himi Banya Street</div>
+                <div class="activity-details">
+                    Browse fresh seafood stalls and experience morning auctions. Famous for <span class="highlight">fresh yellowtail (kanburi)</span> in winter!
+                    <span class="admission">8:30-18:00 | Auctions early AM</span>
+                    <div class="note">🐟 Winter yellowtail is the specialty of the season</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">11:00</span>
+                <div class="activity-title">🍱 Breakfast/Snacks at Market</div>
+                <div class="activity-details">
+                    Try local seafood specialties fresh from the morning catch
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">13:00</span>
+                <div class="activity-title">📚 Himi Shiokaze Gallery</div>
+                <div class="activity-details">
+                    Part of the "Himi Manga Road" featuring Fujiko FujioA Manga Museum and exhibits
+                    <span class="admission">¥500+ | Hours vary</span>
+                    <div class="note">📸 Anime-themed with great photo opportunities</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">15:00</span>
+                <div class="activity-title">🏭 Himi Fishery Culture Exchange Center</div>
+                <div class="activity-details">
+                    Learn about Etchu set-net fishing through interactive exhibits. Watch fish processing demonstrations and enjoy hands-on activities.
+                    <span class="admission">FREE | 10:00-15:30</span>
+                    <div class="note">👨‍🏫 Hands-on activities available for visitors</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">16:30</span>
+                <div class="activity-title">🍣 Lunch - Fresh Himi Kanburi</div>
+                <div class="activity-details">
+                    Savor fresh Himi kanburi (winter yellowtail) and local sushi at market restaurants
+                    <div class="note">👥 Reserve table if traveling with large party</div>
+                    <img src="https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=600" alt="Fresh sushi" class="activity-image">
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">18:00</span>
+                <div class="activity-title">♨️ Himi Onsen Day-Use Facility</div>
+                <div class="activity-details">
+                    Relax in therapeutic hot springs after an active day
+                    <span class="admission">¥500-800 | Hours vary</span>
+                    <div class="note">💆 Refreshing after market activities</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">20:00</span>
+                <div class="activity-title">🚙 Return to Kanazawa</div>
+                <div class="activity-details">
+                    40-minute evening drive back to hotel for rest
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 4 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 4 - December 27</h2>
+                <div class="location">🏔️ Shirakawa-go & Takayama</div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800" alt="Shirakawa-go winter village" class="location-image">
+
+            <div class="activity">
+                <span class="time">08:00</span>
+                <div class="activity-title">🚗 Depart for Shirakawa-go</div>
+                <div class="activity-details">
+                    1-1.5 hour drive via Route 360 and 156
+                    <div class="note">🌏 UNESCO World Heritage Site destination</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">09:00</span>
+                <div class="activity-title">🏘️ Arrive at Shirakawa-go UNESCO World Heritage Site</div>
+                <div class="activity-details">
+                    Historic mountain village designated as UNESCO World Heritage Site since 1995
+                    <span class="admission">FREE village entry | 8:00-17:00</span>
+                    <div class="note">🏛️ Museum entries are separate fees</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">12:00</span>
+                <div class="activity-title">🏡 Explore Ogimachi Village</div>
+                <div class="activity-details">
+                    Walk among <span class="highlight">100+ traditional Gassho-zukuri farmhouses</span> with distinctive steep thatched roofs designed to withstand heavy snow
+                    <span class="admission">9:00-16:00 Winter hours</span>
+                    <div class="note">🏔️ Unique architecture with steep thatched roofs</div>
+                    <div class="image-grid">
+                        <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=400" alt="Gassho-zukuri houses">
+                        <img src="https://images.unsplash.com/photo-1624468489553-c3c2e8d9338e?w=400" alt="Traditional Japanese village">
+                    </div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">13:00</span>
+                <div class="activity-title">🏛️ Gassho-zukuri Minkaen Outdoor Museum</div>
+                <div class="activity-details">
+                    Visit 25 traditional buildings, with <span class="highlight">9 designated as important cultural properties</span>
+                    <span class="admission">¥300 | 9:00-16:00 winter</span>
+                    <div class="note">⚠️ Closed Thursdays Dec-Mar | Last admission 20 min before closing</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">15:00</span>
+                <div class="activity-title">🎁 Browse Local Craft Shops</div>
+                <div class="activity-details">
+                    Shop for souvenirs and crafts
+                    <div class="note">🧸 Sarubobo dolls are popular local souvenirs</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">16:00</span>
+                <div class="activity-title">🍜 Lunch - Local Specialties</div>
+                <div class="activity-details">
+                    Enjoy local ramen and mountain regional cuisine
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">17:00</span>
+                <div class="activity-title">🚙 Depart for Takayama</div>
+                <div class="activity-details">
+                    Scenic 1-hour mountain drive via Route 156
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">18:00</span>
+                <div class="activity-title">🏨 Check-in Takayama Hotel</div>
+                <div class="activity-details">
+                    Check into your Takayama hotel and begin exploring Sanmachi Suji Old Town
+                    <div class="note">🏮 Also called "Little Kyoto" with three parallel historic streets</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">19:00</span>
+                <div class="activity-title">🌃 Evening Exploration</div>
+                <div class="activity-details">
+                    Stroll through Sanmachi Suji's Edo-period wooden merchant buildings
+                    <div class="note">🏪 Shops stay open late into the evening</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 5 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 5 - December 28</h2>
+                <div class="location">🌅 Takayama Market & Heritage</div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?w=800" alt="Takayama old town" class="location-image">
+
+            <div class="activity">
+                <span class="time">07:00</span>
+                <div class="activity-title">☀️ Wake Up & Prepare</div>
+                <div class="activity-details">
+                    Early morning preparation for the market visit
+                    <div class="note">⏰ Winter hours 8:00-12:00 (only 4 hours!)</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">08:00</span>
+                <div class="activity-title">🛍️ Miyagawa Morning Market</div>
+                <div class="activity-details">
+                    Visit <span class="highlight">Japan's largest morning market</span> with 60+ vendor stalls along the peaceful Miyagawa River. Chat with vendors and enjoy breakfast at market stalls.
+                    <span class="admission">FREE | 8:00-12:00 (Winter hours)</span>
+                    <div class="note">🥐 Try local market breakfast specialties</div>
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600" alt="Japanese morning market" class="activity-image">
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">12:30</span>
+                <div class="activity-title">🍱 Lunch & Rest</div>
+                <div class="activity-details">
+                    Lunch at local restaurants or market food, then rest at hotel
+                    <div class="note">💤 Rest before afternoon museum visit</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">13:30</span>
+                <div class="activity-title">🏛️ Takayama Jinya</div>
+                <div class="activity-details">
+                    Explore the <span class="highlight">only remaining intact Edo-period government building in Japan</span>. Features tatami rooms and traditional gardens.
+                    <span class="admission">¥440 | 8:45-16:30 winter</span>
+                    <div class="note">⏱️ Last entry 16:00 | Allow 1-1.5 hours</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">15:00</span>
+                <div class="activity-title">🏘️ Hida Folk Village (Hida no Sato)</div>
+                <div class="activity-details">
+                    Experience <span class="highlight">30+ traditional Gassho-zukuri farmhouses</span> relocated from the Hida region. Participate in hands-on craft workshops and cultural experiences.
+                    <span class="admission">¥700 | 8:30-17:00 year-round</span>
+                    <div class="note">🎨 Many interactive activities and hands-on crafts | Allow 2-3 hours</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">18:00</span>
+                <div class="activity-title">♨️ Okuhida Hot Spring Village (Optional)</div>
+                <div class="activity-details">
+                    Optional scenic evening relaxation at mountain hot springs
+                    <div class="note">🏔️ Beautiful mountain setting for additional onsen experience</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">19:00</span>
+                <div class="activity-title">🥩 Dinner - Hida Cuisine & Sake</div>
+                <div class="activity-details">
+                    Savor local Hida beef specialties paired with local sake tasting
+                    <div class="note">🍶 Professional dinner with regional specialties throughout town</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Day 6 -->
+        <div class="day-card">
+            <div class="day-header">
+                <h2>Day 6 - December 29</h2>
+                <div class="location">🏯 Journey to Nagoya</div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800" alt="Nagoya Castle" class="location-image">
+
+            <div class="activity">
+                <span class="time">09:00</span>
+                <div class="activity-title">🚗 Depart for Nagoya</div>
+                <div class="activity-details">
+                    2-2.5 hour drive via Chuo Expressway
+                    <div class="note">🛣️ Moderate traffic expected on expressway</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">10:30</span>
+                <div class="activity-title">🏯 Gujo Hachiman Castle (En Route)</div>
+                <div class="activity-details">
+                    Often called <span class="highlight">"the most beautiful mountain castle in Japan"</span>. Enjoy a 15-minute uphill hike for panoramic mountain views.
+                    <span class="admission">FREE | 15 min hike</span>
+                    <div class="note">📸 Picturesque views best in clear weather</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">11:00</span>
+                <div class="activity-title">🛕 Osu Kannon Temple</div>
+                <div class="activity-details">
+                    Visit this <span class="highlight">11th century Buddhist temple</span> of the Shingon sect. Features a Kannon goddess statue carved by Kobo Daishi.
+                    <span class="admission">FREE entry</span>
+                    <div class="note">🙏 Ancient temple with deep spiritual significance</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">13:00</span>
+                <div class="activity-title">🛍️ Osu Shopping Arcade</div>
+                <div class="activity-details">
+                    Browse <span class="highlight">400+ shops</span> in covered arcades featuring electronics, anime/J-pop goods, antiques, and vintage items
+                    <span class="admission">10:30-17:00 (most shops)</span>
+                    <div class="note">🎮 Many shops have unique specialty items</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">14:00</span>
+                <div class="activity-title">🎪 Osu Kannon Flea Market</div>
+                <div class="activity-details">
+                    <span class="highlight">Special event on December 28!</span> Browse around 60 vendor stalls with antiques, crafts, and vintage goods.
+                    <span class="admission">9:00-sunset</span>
+                    <div class="note">🗓️ Held on 18th and 28th of each month | Plan 1-2 hours</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">14:00</span>
+                <div class="activity-title">🏯 Nagoya Castle</div>
+                <div class="activity-details">
+                    Marvel at the iconic <span class="highlight">Golden Shachihoko guardian statue</span> on the main tower. Explore Honmaru Palace with its stunning 44 gold-leaf covered fusumae sliding doors.
+                    <span class="admission">¥500 | 9:00-16:30</span>
+                    <div class="note">🏛️ Allow 1.5-2 hours for museum visit</div>
+                    <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600" alt="Nagoya Castle" class="activity-image">
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">16:00</span>
+                <div class="activity-title">🍜 Kinshachi Yokocho Restaurant Alley</div>
+                <div class="activity-details">
+                    Experience authentic <span class="highlight">Nagoya local cuisine</span> in this traditional restaurant alley directly in front of Nagoya Castle. Try hitsumabushi (grilled eel) and miso-nikomi udon noodles.
+                    <span class="admission">10:30-evening (varies by shop)</span>
+                    <div class="note">🍽️ Famous for Nagoya-meshi regional cuisine</div>
+                </div>
+            </div>
+
+            <div class="activity">
+                <span class="time">17:30</span>
+                <div class="activity-title">🌙 Final Evening at Leisure</div>
+                <div class="activity-details">
+                    Enjoy final dinner with local Nagoya dishes - hitsumabushi and miso-nikomi udon
+                    <div class="note">🛍️ Optional shopping and dining continuation in the area</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>✨ Safe travels and wonderful memories await! ✨</p>
+        <p style="margin-top: 1rem; opacity: 0.8;">December 24-29, 2024 | Central Japan Winter Adventure</p>
+    </footer>
+
+    <script>
+        // Create snowflakes animation
+        function createSnowflake() {
+            const snowContainer = document.getElementById('snow');
+            if (!snowContainer) return;
+            
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * 100 + '%';
+            snowflake.style.animationDuration = Math.random() * 3 + 5 + 's';
+            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            
+            snowContainer.appendChild(snowflake);
+            
+            setTimeout(() => {
+                snowflake.remove();
+            }, 8000);
+        }
+
+        // Start snowflake animation when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            // Create snowflakes periodically
+            setInterval(createSnowflake, 300);
+
+            // Create initial snowflakes
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createSnowflake, i * 100);
+            }
+        });
+    </script>
